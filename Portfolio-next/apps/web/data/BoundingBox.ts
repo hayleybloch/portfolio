@@ -1,4 +1,5 @@
-import { TouchData } from "@/events/UserInteractionEvents";
+/* These files are copied from the web project, we can make them shared but that takes a bit of effort */
+import { TouchData } from "./TouchData";
 
 export class BoundingBox {
   constructor(
