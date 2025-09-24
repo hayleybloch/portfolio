@@ -92,7 +92,7 @@ function getDesktopTargetUrl(): string {
   const env = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local' : 'local';
 
   if (env === 'production') {
-    return 'https://hayleybloch.github.io/portfolio/desktop-docs/';
+    return 'https://portfolio-next-desktop.vercel.app/';
   }
 
   if (env === 'preview' || env === 'development') {

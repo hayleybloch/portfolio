@@ -5,23 +5,17 @@
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
-    "build:pages": "GITHUB_PAGES=true next build",
     "start": "next start -p 3000",
     "lint": "next lint"
   },
   "devDependencies": {
-    "@types/node": "^22.18.6",
-    "@types/react": "^18.3.24",
-    "eslint": "^9.36.0",
-    "typescript": "^5.9.2"
+    "@types/node": "^22.7.6",
+    "@types/react": "^18.3.11"
   },
   "dependencies": {
     "@vercel/analytics": "^1.2.2",
     "ansi-colors": "^4.1.3",
     "ansi-escapes": "^7.0.0",
-    "emulators": "^8.3.0",
-    "next": "^15.5.4",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "emulators": "^8.3.0"
   }
 }

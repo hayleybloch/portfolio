@@ -14,7 +14,9 @@
     "next": "^15.4.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "three": "^0.178.0"
+    "three": "^0.178.0",
+    "rpc": "*",
+    "result": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.28.0",

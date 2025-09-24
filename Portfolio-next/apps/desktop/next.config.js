@@ -2,13 +2,8 @@ const { i18n } = require('./next-i18next.config');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  ...(process.env.GITHUB_PAGES ? {} : { i18n }),
+  i18n,
   devIndicators: false,
-  output: process.env.GITHUB_PAGES ? 'export' : undefined,
-  trailingSlash: true,
-  images: {
-    unoptimized: true,
-  },
   webpack: (webpackConfig, { webpack }) => {
     webpackConfig.plugins.push(
       // Remove node: from import specifiers, because Next.js does not yet support node: scheme
