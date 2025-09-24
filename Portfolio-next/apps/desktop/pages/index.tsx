@@ -20,7 +20,24 @@ export async function getStaticProps({ locale }: any) {
   }
 }
 
+function getWebAppUrl(): string {
+  const env = process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local';
+  
+  if (env === 'production') {
+    return 'https://hayley-portfolio-bay.vercel.app/';
+  }
+  
+  if (env === 'preview' || env === 'development') {
+    const vercelUrl = process.env.NEXT_PUBLIC_VERCEL_BRANCH_URL ?? window.location.host;
+    return vercelUrl.includes('web') ? `https://${vercelUrl}` : `https://${vercelUrl.replace('desktop', 'web')}`;
+  }
+  
+  return 'http://localhost:3001/';
+}
+
 export default function Home() {
+  const webAppUrl = getWebAppUrl();
+  
   return (
     <>
       <Head>
@@ -29,11 +46,19 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <Script strategy="beforeInteractive" src="/emulators/emulators.js"/>
-        <Script strategy="beforeInteractive" src="/emulators-ui/emulators-ui.js"/>
-        
-        <OperatingSystem/>
-
+        <div style={{ width: '100vw', height: '100vh', margin: 0, padding: 0 }}>
+          <iframe
+            src={webAppUrl}
+            style={{
+              width: '100%',
+              height: '100%',
+              border: 'none',
+              margin: 0,
+              padding: 0
+            }}
+            title="Hayley Bloch Portfolio"
+          />
+        </div>
         <Analytics/>
       </main>
     </>
