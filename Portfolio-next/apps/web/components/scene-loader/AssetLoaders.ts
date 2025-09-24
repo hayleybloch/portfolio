@@ -92,7 +92,7 @@ function getDesktopTargetUrl(): string {
   const env = process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local';
 
   if (env === 'production') {
-    return 'https://web-red-three-17.vercel.app/';
+    return 'https://project-vap6h.vercel.app/';
   }
 
   if (env === 'preview' || env === 'development') {
