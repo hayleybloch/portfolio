@@ -1,39 +1,40 @@
 import Head from 'next/head'
-import { useState } from 'react'
+import Script from 'next/script'
+import styles from '@/styles/Home.module.css'
+import { Analytics } from '@vercel/analytics/react';
+import { OperatingSystem } from '@/components/OperatingSystem'
 
-function getTargetUrl(): string {
-  const env = process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-  if (env === 'local') {
-    return 'http://localhost:3001/';
-  } else {
-    return 'https://hayley-portfolio-bay.vercel.app/';
+export async function getStaticProps({ locale }: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(
+        'en', 
+        ['common'],
+        null,
+        []
+      )),
+      // Will be passed to the page component as props
+    },
   }
 }
 
 export default function Home() {
-  const [time] = useState(Date.now());
-  const url = getTargetUrl();
-
   return (
     <>
       <Head>
-        <title>Hayley Bloch - HTMAA Portfolio Desktop</title>
+        <title>Hayley Bloch - HTMAA Portfolio</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main style={{ margin: 0, padding: 0, height: '100vh', overflow: 'hidden' }}>
-        <iframe 
-          src={`${url}?t=${time}`}
-          style={{
-            width: '100%',
-            height: '100%',
-            border: 'none',
-            margin: 0,
-            padding: 0
-          }}
-          title="Hayley's Portfolio"
-        />
+      <main className={styles.main}>
+        <Script strategy="beforeInteractive" src="/emulators/emulators.js"/>
+        <Script strategy="beforeInteractive" src="/emulators-ui/emulators-ui.js"/>
+        
+        <OperatingSystem/>
+
+        <Analytics/>
       </main>
     </>
   )
