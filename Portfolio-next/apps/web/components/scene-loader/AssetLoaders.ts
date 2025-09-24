@@ -93,7 +93,7 @@ function getDesktopTargetUrl(): string {
 
   if (env === 'production') {
     // Point to the desktop app deployment
-    return 'https://desktop-two-kappa.vercel.app/';
+    return 'https://desktop-m1r7kfjou-hayley-blochs-projects.vercel.app/';
   }
 
   if (env === 'preview' || env === 'development') {
