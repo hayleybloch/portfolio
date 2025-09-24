@@ -92,9 +92,8 @@ function getDesktopTargetUrl(): string {
   const env = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local' : 'local';
 
   if (env === 'production') {
-    // For production, we need to deploy the desktop app or use a placeholder
-    // For now, let's use a simple placeholder
-    return 'about:blank';
+    // Point to your desktop app deployment
+    return 'https://desktop-hayley-blochs-projects.vercel.app/';
   }
 
   if (env === 'preview' || env === 'development') {
