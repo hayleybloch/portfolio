@@ -5,9 +5,9 @@ function getTargetUrl(time: number): string {
   const env = process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local';
 
   if (env === 'local') {
-    return `http://192.168.178.134:8080/waifu?t=${time}`;
+    return `http://localhost:3001/?t=${time}`;
   } else {
-    return `https://waifu.joeyderuiter.me/waifu?t=${time}`;
+    return `https://hayley-portfolio-bay.vercel.app/?t=${time}`;
   }
 }
 
@@ -28,15 +28,15 @@ export default function DebugApplicationView(props: WindowProps) {
   return (
     <>
       <button onClick={onClickButton}>click me</button>
-      <div style={{
-        width: '100%',
-        height: '100%',
-        display: 'block',
-        background: `url(${url})`,
-        backgroundSize: 'contain',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }}></div>
+      <iframe 
+        src={url}
+        style={{
+          width: '100%',
+          height: '100%',
+          border: 'none'
+        }}
+        title="Hayley's Portfolio"
+      />
     </>
   )
 } 
