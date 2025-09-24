@@ -7,6 +7,15 @@ import { CSS3DObject } from "three/examples/jsm/renderers/CSS3DRenderer";
 import { degToRad } from "three/src/math/MathUtils";
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 
+// Declare process for browser environment
+declare const process: {
+  env: {
+    NEXT_PUBLIC_VERCEL_ENV?: string;
+    NEXT_PUBLIC_VERCEL_BRANCH_URL?: string;
+    NEXT_PUBLIC_TARGET_URL?: string;
+  };
+} | undefined;
+
 export const DisplayParentName = "DisplayParent";
 export const DisplayName = "Display";
 const MonitorName = "Monitor";
@@ -52,7 +61,7 @@ function placeOnTopOf(object: Object3D, support: Object3D, yPad = 0.002) {
 
 function findDesk(scene: Object3D): Object3D | null {
   let desk: Object3D | null = null;
-  scene.traverse(o => { if ((o as any).name === "Desk") { desk = o; } });
+  scene.traverse((o: Object3D) => { if (o.name === "Desk") { desk = o; } });
   return desk;
 }
 
@@ -80,18 +89,18 @@ function transformWebUrlToDesktop(webUrl: string): string {
 }
 
 function getDesktopTargetUrl(): string {
-  const env = process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local';
+  const env = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local' : 'local';
 
   if (env === 'production') {
     return 'https://portfolio-next-desktop.vercel.app/';
   }
 
   if (env === 'preview' || env === 'development') {
-    const vercelUrl = process.env.NEXT_PUBLIC_VERCEL_BRANCH_URL ?? window.location.host;
+    const vercelUrl = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_VERCEL_BRANCH_URL ?? window.location.host : window.location.host;
 
     return transformWebUrlToDesktop(vercelUrl);
   } else {
-    const target = process.env.NEXT_PUBLIC_TARGET_URL ?? 'http://127.0.0.1:3001/'
+    const target = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_TARGET_URL ?? 'http://127.0.0.1:3001/' : 'http://127.0.0.1:3001/';
 
     return target;
   }
@@ -169,7 +178,7 @@ export function FloorLoader(): AssetLoader {
     context.scenes.sourceScene.add(asset.scene);
 
     const material = new MeshBasicMaterial({ map: texture });
-    asset.scene.traverse((node) => {
+    asset.scene.traverse((node: Object3D) => {
       if (!(node instanceof Mesh)) { return; }
 
       node.material = material;
@@ -205,7 +214,7 @@ export function DeskLoader(): AssetLoader {
     }
 
     const material = new MeshStandardMaterial({ map: texture, roughness: 1.0, metalness: 0.0 });
-    asset.scene.traverse((node) => {
+    asset.scene.traverse((node: Object3D) => {
       if (!(node instanceof Mesh)) { return; }
 
       if (node.name === DeskName) {
@@ -256,7 +265,7 @@ export function MonitorLoader(): AssetLoader {
     const computerMaterial  = new MeshBasicMaterial({ map: computerTexture });
     const nameplateMaterial = new MeshBasicMaterial({ map: namePlateTexture });
 
-    asset.scene.traverse((node) => {
+    asset.scene.traverse((node: Object3D) => {
       if (!(node instanceof Mesh)) { return; }
 
       switch (node.name) {
@@ -275,7 +284,7 @@ export function MonitorLoader(): AssetLoader {
       }
     });
 
-    const display = asset.scene.children.find((x) => x.name === DisplayName) as Mesh<BufferGeometry, Material>;
+    const display = asset.scene.children.find((x: Object3D) => x.name === DisplayName) as Mesh<BufferGeometry, Material>;
     const cutoutDisplay = display.clone();
     display.visible = false;
 
@@ -374,7 +383,7 @@ export function KeyboardLoader(): AssetLoader {
     const caseMaterial    = new MeshBasicMaterial({ map: caseTexture });
     const keyCapMaterial  = new MeshBasicMaterial({ map: keyCapTexture });
 
-    asset.scene.traverse((node) => {
+    asset.scene.traverse((node: Object3D) => {
       if (!(node instanceof Mesh)) { return; }
 
       if (node.name === "Case") {
@@ -413,7 +422,7 @@ export function MouseLoader(): AssetLoader {
 
     const material = new MeshBasicMaterial({ map: texture });
 
-    asset.scene.traverse(node => {
+    asset.scene.traverse((node: Object3D) => {
       if (!(node instanceof Mesh)) { return; }
 
       node.material = material;
@@ -443,7 +452,7 @@ export function CablesLoader(): AssetLoader {
 
     const material = new MeshBasicMaterial({ color: 0x303030 });
 
-    asset.scene.traverse(node => {
+    asset.scene.traverse((node: Object3D) => {
       if (!(node instanceof Mesh)) { return; }
 
       node.material = material;
@@ -477,7 +486,7 @@ export function HydraLoader(): AssetLoader {
     root.scale.setScalar(0.55);
     root.rotateY(-Math.PI /1.5);
 
-    root.traverse(n => {
+    root.traverse((n: Object3D) => {
       // @ts-ignore – runtime check from three
       if (n.isMesh) {
         const mesh = n as Mesh;
@@ -540,7 +549,7 @@ export function IrisBoxLoader(): AssetLoader {
     root.rotateY(Math.PI / 6);
     root.rotateX(Math.PI / 2);
 
-    root.traverse(n => {
+    root.traverse((n: Object3D) => {
       // @ts-ignore
       if (n.isMesh) {
         const mesh = n as Mesh;
@@ -583,7 +592,7 @@ export function PlantLoader(): AssetLoader {
 
     let material = new MeshBasicMaterial({ map: texture });
 
-    asset.scene.traverse(node => {
+    asset.scene.traverse((node: Object3D) => {
       if (!(node instanceof Mesh)) { return; }
 
       node.material = material;
