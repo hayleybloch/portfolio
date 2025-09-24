@@ -92,8 +92,8 @@ function getDesktopTargetUrl(): string {
   const env = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local' : 'local';
 
   if (env === 'production') {
-    // Load your desktop app content (simple version for now)
-    return 'https://desktop-simple-ezszwm9h6-hayleybloch-3729s-projects.vercel.app/';
+    // In production, don't load any iframe - use standalone mode
+    return '';
   }
 
   if (env === 'preview' || env === 'development') {
@@ -319,7 +319,24 @@ export function MonitorLoader(): AssetLoader {
     iframe.style.boxSizing = 'border-box';
     iframe.style.padding = '32px';
 
-    iframe.src = getDesktopTarget(context.debug);
+    const desktopUrl = getDesktopTarget(context.debug);
+    if (desktopUrl) {
+      iframe.src = desktopUrl;
+    } else {
+      // In production, create a placeholder instead of iframe
+      const placeholder = document.createElement('div');
+      placeholder.style.width = '100%';
+      placeholder.style.height = '100%';
+      placeholder.style.backgroundColor = '#000';
+      placeholder.style.display = 'flex';
+      placeholder.style.alignItems = 'center';
+      placeholder.style.justifyContent = 'center';
+      placeholder.style.color = '#fff';
+      placeholder.style.fontFamily = 'monospace';
+      placeholder.innerHTML = 'Hayley Bloch<br/>Portfolio';
+      container.appendChild(placeholder);
+      return null;
+    }
 
     container.appendChild(iframe);
     const cssPage = new CSS3DObject(container);
