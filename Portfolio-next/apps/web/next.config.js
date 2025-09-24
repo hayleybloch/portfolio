@@ -1,11 +1,10 @@
-const { i18n } = require('./next-i18next.config');
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  i18n,
   reactStrictMode: true,
   transpilePackages: ['rpc'],
   devIndicators: false,
+  output: process.env.GITHUB_PAGES ? 'export' : undefined,
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },
@@ -15,21 +14,10 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  webpack: (webpackConfig, { webpack }) => {
-    webpackConfig.plugins.push(
-      // Remove node: from import specifiers, because Next.js does not yet support node: scheme
-      // https://github.com/vercel/next.js/issues/28774
-      new webpack.NormalModuleReplacementPlugin(
-        /^node:/,
-        (resource) => {
-          resource.request = resource.request.replace(/^node:/, '');
-        },
-      ),
-    );
-
+  webpack: (config) => {
     // Add fallbacks for Node.js modules
-    webpackConfig.resolve.fallback = {
-      ...webpackConfig.resolve.fallback,
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
       fs: false,
       net: false,
       tls: false,
@@ -42,26 +30,24 @@ const nextConfig = {
       assert: false,
       os: false,
       path: false,
-      async_hooks: false,
-      events: false,
-      util: false,
-      buffer: false,
-      process: false,
     };
 
-    webpackConfig.module.rules.push({
+    config.module.rules.push({
       test: /\.frag$/,
       type: 'asset/source',
     });
 
-    webpackConfig.module.rules.push({
+    config.module.rules.push({
       test: /\.vert$/,
       type: 'asset/source',
     });
 
-    return webpackConfig;
+    return config;
   },
   async headers() {
+    if (process.env.GITHUB_PAGES) {
+      return {};
+    }
     return [
       {
         source: "/",
@@ -75,6 +61,9 @@ const nextConfig = {
     ]
   },
   async redirects() {
+    if (process.env.GITHUB_PAGES) {
+      return {};
+    }
     return [
       {
         source: '/index.html',
