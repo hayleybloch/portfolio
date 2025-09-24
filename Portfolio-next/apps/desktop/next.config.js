@@ -4,6 +4,12 @@ const { i18n } = require('./next-i18next.config');
 const nextConfig = {
   i18n,
   devIndicators: false,
+  // Generate a fully static export we can open via index.html
+  output: 'export',
+  trailingSlash: true,
+  images: { unoptimized: true },
+  // Use relative paths so assets load from file://
+  assetPrefix: './',
   webpack: (webpackConfig, { webpack }) => {
     webpackConfig.plugins.push(
       // Remove node: from import specifiers, because Next.js does not yet support node: scheme

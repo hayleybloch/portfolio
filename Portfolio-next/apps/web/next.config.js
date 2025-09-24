@@ -5,6 +5,12 @@ const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['rpc'],
   devIndicators: false,
+  // Generate a fully static export we can open via index.html
+  output: 'export',
+  trailingSlash: true,
+  images: { unoptimized: true },
+  // Use relative paths for assets to work over file://
+  assetPrefix: './',
   webpack: (config) => {
     config.module.rules.push({
       test: /\.frag$/,
