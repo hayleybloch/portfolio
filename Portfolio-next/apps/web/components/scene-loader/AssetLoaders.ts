@@ -92,8 +92,8 @@ function getDesktopTargetUrl(): string {
   const env = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local' : 'local';
 
   if (env === 'production') {
-    // Load the desktop app content from the new Vercel account
-    return 'https://web-55tr493e9-hayleybloch-3729s-projects.vercel.app/';
+    // Load the desktop app content
+    return 'https://portfolio-next-desktop.vercel.app/';
   }
 
   if (env === 'preview' || env === 'development') {
