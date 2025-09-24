@@ -1,4 +1,4 @@
-// import { CameraZoomDistanceResponse } from "rpc";
+import { CameraZoomDistanceResponse } from "rpc";
 
 export class Camera {
   constructor(

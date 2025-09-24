@@ -47,7 +47,7 @@ const nextConfig = {
     return webpackConfig;
   },
   reactStrictMode: true,
-  // transpilePackages: ['rpc'],
+  transpilePackages: ['rpc'],
   async headers() {
     return [
       {
