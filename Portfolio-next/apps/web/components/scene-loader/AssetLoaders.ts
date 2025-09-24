@@ -92,7 +92,7 @@ function getDesktopTargetUrl(): string {
   const env = process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local';
 
   if (env === 'production') {
-    return 'https://hayley-portfolio-bay.vercel.app/';
+    return 'https://web-seven-sage-90.vercel.app/';
   }
 
   if (env === 'preview' || env === 'development') {
@@ -310,30 +310,12 @@ export function MonitorLoader(): AssetLoader {
     container.style.width = `${pageWidth}px`;
     container.style.height = `${pageHeight}px`;
 
-    // Create a placeholder instead of iframe to avoid 404 errors
-    const placeholder = document.createElement('div');
-    placeholder.id = 'portfolio-placeholder';
-    placeholder.classList.add("portfolio-container");
-    placeholder.style.width = `100%`;
-    placeholder.style.height = `100%`;
-    placeholder.style.backgroundColor = '#1a1a1a';
-    placeholder.style.display = 'flex';
-    placeholder.style.alignItems = 'center';
-    placeholder.style.justifyContent = 'center';
-    placeholder.style.color = '#fff';
-    placeholder.style.fontFamily = 'monospace';
-    placeholder.style.fontSize = '24px';
-    placeholder.style.textAlign = 'center';
-    placeholder.style.boxSizing = 'border-box';
-    placeholder.style.padding = '32px';
-    placeholder.innerHTML = `
-      <div>
-        <h1 style="margin: 0 0 20px 0; color: #4a9eff;">Hayley Bloch</h1>
-        <p style="margin: 0; color: #ccc;">Interactive Portfolio</p>
-        <p style="margin: 10px 0 0 0; color: #666; font-size: 14px;">Click anywhere to explore</p>
-      </div>
-    `;
-    container.appendChild(placeholder);
+    const iframe = document.createElement('iframe');
+    iframe.src = getDesktopTarget(context.debug);
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.style.border = 'none';
+    container.appendChild(iframe);
     const cssPage = new CSS3DObject(container);
 
     const [localX, localY, localZ] = [
