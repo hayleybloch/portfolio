@@ -22,6 +22,23 @@ const nextConfig = {
       ),
     );
 
+    // Add fallbacks for Node.js modules
+    webpackConfig.resolve.fallback = {
+      ...webpackConfig.resolve.fallback,
+      fs: false,
+      net: false,
+      tls: false,
+      crypto: false,
+      stream: false,
+      url: false,
+      zlib: false,
+      http: false,
+      https: false,
+      assert: false,
+      os: false,
+      path: false,
+    };
+
     return webpackConfig;
   },
   reactStrictMode: true,
