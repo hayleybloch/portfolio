@@ -85,6 +85,9 @@ function transformWebUrlToDesktop(webUrl: string): string {
   const index = parts.findIndex(x => x === 'web');
   parts[index] = 'desktop';
 
+  // This is meant to transform a Vercel web branch URL (e.g., "my-portfolio-web-main.vercel.app")
+  // into the corresponding desktop branch URL (e.g., "my-portfolio-desktop-main.vercel.app").
+  // It assumes the input is a Vercel branch URL containing "-web-" and replaces it with "-desktop-".
   return 'https://' + parts.join('-');
 }
 
@@ -92,7 +95,7 @@ function getDesktopTargetUrl(): string {
   const env = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local' : 'local';
 
   if (env === 'production') {
-    // Use blank iframe since desktop app hit deployment limit
+    // Desktop app deleted and deployment limit reached - use blank iframe
     return 'about:blank';
   }
 
