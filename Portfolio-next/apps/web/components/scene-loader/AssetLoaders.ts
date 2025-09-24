@@ -92,9 +92,8 @@ function getDesktopTargetUrl(): string {
   const env = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local' : 'local';
 
   if (env === 'production') {
-    // For production, use a placeholder to avoid 404 errors
-    // The desktop content should be integrated directly into the web app
-    return 'about:blank';
+    // Point to the desktop app deployment
+    return 'https://desktop-hayley-blochs-projects.vercel.app/';
   }
 
   if (env === 'preview' || env === 'development') {
