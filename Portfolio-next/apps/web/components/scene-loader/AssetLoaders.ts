@@ -92,7 +92,8 @@ function getDesktopTargetUrl(): string {
   const env = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local' : 'local';
 
   if (env === 'production') {
-    return 'https://portfolio-next-desktop.vercel.app/';
+    // Use blank iframe to avoid loading Joey's content
+    return 'about:blank';
   }
 
   if (env === 'preview' || env === 'development') {
