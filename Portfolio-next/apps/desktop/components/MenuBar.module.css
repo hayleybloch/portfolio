@@ -1,0 +1,66 @@
+.menuBar {
+  background-color: darkgray;
+  display: flex;
+  padding: 0 5px;
+  flex: 0 1 auto;
+  height: 45px;
+  box-shadow: inset -1px -1px #0a0a0a,inset 1px 1px #c8c8c8,inset -2px -2px grey,inset 2px 2px #fff;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  user-select: none;
+  padding-right: 8px;
+}
+
+.utility {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin: 5px;
+  border: 1px solid #000;
+}
+
+.weekday {
+  text-transform: capitalize;
+}
+
+.date[data-locale="en"] .month {
+  text-transform: capitalize;
+}
+
+.menuEntry {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 0 8px;
+}
+
+.menuEntry span {
+  user-select: none;
+}
+
+.menuContent {
+  display: flex;
+  flex-direction: column;
+  background-color: darkgray;
+  z-index: 10000;
+
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding: 5px;
+  box-shadow: inset -1px -1px #0a0a0a,inset 1px 1px #c8c8c8,inset -2px -2px grey,inset 2px 2px #fff;
+}
+
+.menuContent button {
+  display: block;
+  white-space: nowrap;
+}
