@@ -92,8 +92,8 @@ function getDesktopTargetUrl(): string {
   const env = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local' : 'local';
 
   if (env === 'production') {
-    // Use blank iframe to avoid loading Joey's content
-    return 'about:blank';
+    // Load your own web content
+    return 'https://hayley-portfolio-bay.vercel.app/';
   }
 
   if (env === 'preview' || env === 'development') {
