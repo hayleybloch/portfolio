@@ -92,7 +92,7 @@ function getDesktopTargetUrl(): string {
   const env = process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local';
 
   if (env === 'production') {
-    return 'https://web-seven-sage-90.vercel.app/';
+    return 'https://desktop-hayleybloch-3729s-projects.vercel.app/';
   }
 
   if (env === 'preview' || env === 'development') {
