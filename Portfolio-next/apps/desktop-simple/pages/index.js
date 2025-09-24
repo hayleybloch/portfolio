@@ -1,12 +1,11 @@
 import Head from 'next/head'
-import { Analytics } from '@vercel/analytics/react';
 
 export default function Home() {
   return (
     <>
       <Head>
         <title>Hayley Bloch - Desktop</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main style={{
@@ -53,10 +52,7 @@ export default function Home() {
               backdropFilter: 'blur(10px)',
               cursor: 'pointer',
               transition: 'transform 0.2s'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-            >
+            }}>
               <h3>About</h3>
               <p>Learn more about my background and experience</p>
             </div>
@@ -67,10 +63,7 @@ export default function Home() {
               backdropFilter: 'blur(10px)',
               cursor: 'pointer',
               transition: 'transform 0.2s'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-            >
+            }}>
               <h3>Projects</h3>
               <p>Explore my portfolio of work</p>
             </div>
@@ -81,10 +74,7 @@ export default function Home() {
               backdropFilter: 'blur(10px)',
               cursor: 'pointer',
               transition: 'transform 0.2s'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-            >
+            }}>
               <h3>Contact</h3>
               <p>Get in touch with me</p>
             </div>
@@ -97,7 +87,6 @@ export default function Home() {
             Welcome to my desktop interface! This is a simplified version of my portfolio.
           </p>
         </div>
-        <Analytics/>
       </main>
     </>
   )
