@@ -101,9 +101,8 @@ function getDesktopTargetUrl(): string {
 
     return transformWebUrlToDesktop(vercelUrl);
   } else {
-    const target = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_TARGET_URL ?? 'http://127.0.0.1:3001/' : 'http://127.0.0.1:3001/'
-
-    return target;
+    // Local development - point to desktop app on port 3000
+    return 'http://127.0.0.1:3000/';
   }
 }
 
