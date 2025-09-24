@@ -5,6 +5,11 @@ const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['rpc'],
   devIndicators: false,
+  output: process.env.GITHUB_PAGES ? 'export' : undefined,
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.frag$/,
