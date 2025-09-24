@@ -9,7 +9,7 @@ import { Dock } from "./Dock/Dock";
 import { FileSystem } from '@/apis/FileSystem/FileSystem';
 import styles from './OperatingSystem.module.css';
 import { DragAndDropView } from "./DragAndDropView";
-import { parseMessageFromParent, sendRequestToParent } from "rpc";
+// import { parseMessageFromParent, sendRequestToParent } from "rpc";
 import { Camera } from "@/data/Camera";
 import { PointerCoordinates, TouchData } from "@/data/TouchData";
 import { clamp, isPhoneSafari, isTouchMoveCamera, isTouchZoom } from "./util";
@@ -198,7 +198,7 @@ export const OperatingSystem = () => {
     const handleParentEvent = handleParentResponsesClosure(initialCamera, camera, apis);
     window.addEventListener('message', handleParentEvent, false);
 
-    sendRequestToParent({ method: 'mounted' });
+    // sendRequestToParent({ method: 'mounted' });
 
     return () => {
       // Needs to be done, due to this class also opening files in the application manager

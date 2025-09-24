@@ -37,12 +37,17 @@ const nextConfig = {
       assert: false,
       os: false,
       path: false,
+      async_hooks: false,
+      events: false,
+      util: false,
+      buffer: false,
+      process: false,
     };
 
     return webpackConfig;
   },
   reactStrictMode: true,
-  transpilePackages: ['rpc'],
+  // transpilePackages: ['rpc'],
   async headers() {
     return [
       {
