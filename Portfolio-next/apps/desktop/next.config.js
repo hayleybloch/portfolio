@@ -48,8 +48,8 @@ const nextConfig = {
     // Add alias resolution for shared packages
     webpackConfig.resolve.alias = {
       ...webpackConfig.resolve.alias,
-      'result': require.resolve('result'),
-      'rpc': require.resolve('rpc'),
+      'result': require('path').resolve(__dirname, '../../packages/result'),
+      'rpc': require('path').resolve(__dirname, '../../packages/rpc'),
     };
 
     return webpackConfig;
