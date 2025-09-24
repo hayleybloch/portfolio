@@ -1,5 +1,8 @@
+const { i18n } = require('./next-i18next.config');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  i18n,
   reactStrictMode: true,
   transpilePackages: ['rpc'],
   devIndicators: false,
@@ -12,10 +15,21 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  webpack: (config) => {
+  webpack: (webpackConfig, { webpack }) => {
+    webpackConfig.plugins.push(
+      // Remove node: from import specifiers, because Next.js does not yet support node: scheme
+      // https://github.com/vercel/next.js/issues/28774
+      new webpack.NormalModuleReplacementPlugin(
+        /^node:/,
+        (resource) => {
+          resource.request = resource.request.replace(/^node:/, '');
+        },
+      ),
+    );
+
     // Add fallbacks for Node.js modules
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
+    webpackConfig.resolve.fallback = {
+      ...webpackConfig.resolve.fallback,
       fs: false,
       net: false,
       tls: false,
@@ -28,19 +42,24 @@ const nextConfig = {
       assert: false,
       os: false,
       path: false,
+      async_hooks: false,
+      events: false,
+      util: false,
+      buffer: false,
+      process: false,
     };
 
-    config.module.rules.push({
+    webpackConfig.module.rules.push({
       test: /\.frag$/,
       type: 'asset/source',
     });
 
-    config.module.rules.push({
+    webpackConfig.module.rules.push({
       test: /\.vert$/,
       type: 'asset/source',
     });
 
-    return config;
+    return webpackConfig;
   },
   async headers() {
     return [
