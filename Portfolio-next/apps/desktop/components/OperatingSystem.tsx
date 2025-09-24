@@ -9,7 +9,7 @@ import { Dock } from "./Dock/Dock";
 import { FileSystem } from '@/apis/FileSystem/FileSystem';
 import styles from './OperatingSystem.module.css';
 import { DragAndDropView } from "./DragAndDropView";
-import { parseMessageFromParent, sendRequestToParent } from "rpc";
+// import { parseMessageFromParent, sendRequestToParent } from "rpc";
 import { Camera } from "@/data/Camera";
 import { PointerCoordinates, TouchData } from "@/data/TouchData";
 import { clamp, isPhoneSafari, isTouchMoveCamera, isTouchZoom } from "./util";
@@ -44,29 +44,29 @@ function handleParentResponsesClosure(
   apis: SystemAPIs
 ) {
   return function(event: MessageEvent) {
-    const response = parseMessageFromParent(event);
-    if (!response.ok) { return; }
+    // const response = parseMessageFromParent(event);
+    // if (!response.ok) { return; }
 
-    const value = response.value;
+    // const value = response.value;
 
-    switch (value.method) {
-      case 'camera_zoom_distance_response': {
-        initialCamera.current = Camera.handleParentResponse(value);
-        camera.current = Camera.handleParentResponse(value);
+    // switch (value.method) {
+    //   case 'camera_zoom_distance_response': {
+    //     initialCamera.current = Camera.handleParentResponse(value);
+    //     camera.current = Camera.handleParentResponse(value);
 
-        break;
-      }
+    //     break;
+    //   }
 
-      case "enable_sound_message": {
-        value.enabled ? apis.sound.enable() : apis.sound.disable();
-        break;
-      }
+    //   case "enable_sound_message": {
+    //     value.enabled ? apis.sound.enable() : apis.sound.disable();
+    //     break;
+    //   }
 
-      case 'display_size': {
-        apis.screen.setResolution(value.width, value.height);
-        break;
-      }
-    }
+    //   case 'display_size': {
+    //     apis.screen.setResolution(value.width, value.height);
+    //     break;
+    //   }
+    // }
   }
 }
 
@@ -91,7 +91,7 @@ export const OperatingSystem = () => {
       if (target) { evt.preventDefault(); }
     }
 
-    sendRequestToParent({ method: 'camera_zoom_distance_request' });
+    // sendRequestToParent({ method: 'camera_zoom_distance_request' });
 
     if (evt.touches.length === 2) {
       touchOrigin.current = TouchData.fromTouchEvent('start', evt);
@@ -147,12 +147,12 @@ export const OperatingSystem = () => {
     }
 
     // Send *potential* camera state to parent
-    sendRequestToParent({
-      method: 'set_possible_camera_parameters_request',
-      currentZoom: cam.currentZoom,
-      horizontalOffset: cam.horizontalOffset,
-      verticalOffset: cam.verticalOffset,
-    });
+    // sendRequestToParent({
+    //   method: 'set_possible_camera_parameters_request',
+    //   currentZoom: cam.currentZoom,
+    //   horizontalOffset: cam.horizontalOffset,
+    //   verticalOffset: cam.verticalOffset,
+    // });
   }
 
   function handleTouchEndEvent(evt: TouchEvent) {
@@ -161,12 +161,12 @@ export const OperatingSystem = () => {
 
     const cam = camera.current;
 
-    sendRequestToParent({
-      method: 'set_camera_parameters_request',
-      currentZoom: cam.currentZoom,
-      verticalOffset: cam.verticalOffset,
-      horizontalOffset: cam.horizontalOffset,
-    });
+    // sendRequestToParent({
+    //   method: 'set_camera_parameters_request',
+    //   currentZoom: cam.currentZoom,
+    //   verticalOffset: cam.verticalOffset,
+    //   horizontalOffset: cam.horizontalOffset,
+    // });
   }
 
   function disableBrowserZoomTouchInteraction(element: HTMLElement): void {
@@ -198,7 +198,7 @@ export const OperatingSystem = () => {
     const handleParentEvent = handleParentResponsesClosure(initialCamera, camera, apis);
     window.addEventListener('message', handleParentEvent, false);
 
-    sendRequestToParent({ method: 'mounted' });
+    // sendRequestToParent({ method: 'mounted' });
 
     return () => {
       // Needs to be done, due to this class also opening files in the application manager

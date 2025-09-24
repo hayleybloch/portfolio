@@ -92,7 +92,7 @@ function getDesktopTargetUrl(): string {
   const env = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local' : 'local';
 
   if (env === 'production') {
-    // Load your desktop app content
+    // Load your desktop app content (simple version for now)
     return 'https://desktop-simple-ezszwm9h6-hayleybloch-3729s-projects.vercel.app/';
   }
 
