@@ -45,10 +45,17 @@ const nextConfig = {
       process: false,
     };
 
+    // Add alias resolution for shared packages
+    webpackConfig.resolve.alias = {
+      ...webpackConfig.resolve.alias,
+      'result': require.resolve('result'),
+      'rpc': require.resolve('rpc'),
+    };
+
     return webpackConfig;
   },
   reactStrictMode: true,
-  transpilePackages: ['rpc'],
+  transpilePackages: ['rpc', 'result'],
   async headers() {
     return [
       {
