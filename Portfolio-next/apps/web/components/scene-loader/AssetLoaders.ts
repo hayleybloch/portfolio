@@ -89,20 +89,20 @@ function transformWebUrlToDesktop(webUrl: string): string {
 }
 
 function getDesktopTargetUrl(): string {
-  const env = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local' : 'local';
+  const env = process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local';
 
   if (env === 'production') {
-    // In production, don't load any iframe - use standalone mode
-    return '';
+    return 'https://hayley-portfolio-bay.vercel.app/';
   }
 
   if (env === 'preview' || env === 'development') {
-    const vercelUrl = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_VERCEL_BRANCH_URL ?? window.location.host : window.location.host;
+    const vercelUrl = process.env.NEXT_PUBLIC_VERCEL_BRANCH_URL ?? window.location.host;
 
     return transformWebUrlToDesktop(vercelUrl);
   } else {
-    // Local development - point to desktop app on port 3000
-    return 'http://127.0.0.1:3000/';
+    const target = process.env.NEXT_PUBLIC_TARGET_URL ?? 'http://127.0.0.1:3001/'
+
+    return target;
   }
 }
 
@@ -319,24 +319,7 @@ export function MonitorLoader(): AssetLoader {
     iframe.style.boxSizing = 'border-box';
     iframe.style.padding = '32px';
 
-    const desktopUrl = getDesktopTarget(context.debug);
-    if (desktopUrl) {
-      iframe.src = desktopUrl;
-    } else {
-      // In production, create a placeholder instead of iframe
-      const placeholder = document.createElement('div');
-      placeholder.style.width = '100%';
-      placeholder.style.height = '100%';
-      placeholder.style.backgroundColor = '#000';
-      placeholder.style.display = 'flex';
-      placeholder.style.alignItems = 'center';
-      placeholder.style.justifyContent = 'center';
-      placeholder.style.color = '#fff';
-      placeholder.style.fontFamily = 'monospace';
-      placeholder.innerHTML = 'Hayley Bloch<br/>Portfolio';
-      container.appendChild(placeholder);
-      return null;
-    }
+    iframe.src = getDesktopTarget(context.debug);
 
     container.appendChild(iframe);
     const cssPage = new CSS3DObject(container);
