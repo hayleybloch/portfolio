@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/contact/
+Content-Type: application/json
+
+{
+    "name": "Hayley Bloch",
+    "email": "hayleybl@mit.edu",
+    "company": "MIT HTMAA",
+    "message": "foobar123"
+}
