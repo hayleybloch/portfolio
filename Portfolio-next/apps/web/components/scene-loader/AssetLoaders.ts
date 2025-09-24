@@ -92,9 +92,8 @@ function getDesktopTargetUrl(): string {
   const env = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local' : 'local';
 
   if (env === 'production') {
-    // Load your web app content - but we need to avoid recursion
-    // For now, use a placeholder until we set up a proper web content endpoint
-    return 'about:blank';
+    // Load the desktop app content
+    return 'https://portfolio-next-desktop.vercel.app/';
   }
 
   if (env === 'preview' || env === 'development') {
