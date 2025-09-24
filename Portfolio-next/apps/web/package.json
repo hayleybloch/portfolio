@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3000",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "build:pages": "GITHUB_PAGES=true next build",
-    "start": "next start -p 3000",
+    "start": "next start -p 3001",
     "lint": "next lint"
   },
   "dependencies": {
