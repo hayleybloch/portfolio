@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['rpc'],
   devIndicators: false,
+  outputFileTracingRoot: '../..',
   output: process.env.GITHUB_PAGES ? 'export' : undefined,
   trailingSlash: true,
   images: {
